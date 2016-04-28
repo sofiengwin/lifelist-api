@@ -12,6 +12,7 @@ module Api
       end
 
       def create
+        # TODO: handle conditions where an invalid id is passed
         bucketlist = Bucketlist.new(bucketlist_params)
         if bucketlist.save
           render json: bucketlist, status: 201, location: [:api, :v1, bucketlist]
@@ -21,12 +22,20 @@ module Api
       end
 
       def update
+        # TODO: handle conditions where an invalid id is passed
         bucketlist = Bucketlist.find(params[:id])
         if bucketlist.update(bucketlist_params)
           render json: bucketlist, status: 200
         else
           render json: bucketlist.errors.full_messages, status: 422
         end
+      end
+
+      def destroy
+        # TODO: handle conditions where an invalid id is passed
+        bucketlist = Bucketlist.find(params[:id])
+        bucketlist.destroy
+        render json: { notice: "bucketlist deleted" }, status: 200
       end
 
       protected
