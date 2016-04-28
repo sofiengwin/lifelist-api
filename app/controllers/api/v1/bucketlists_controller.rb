@@ -20,6 +20,15 @@ module Api
         end
       end
 
+      def update
+        bucketlist = Bucketlist.find(params[:id])
+        if bucketlist.update(bucketlist_params)
+          render json: bucketlist, status: 200
+        else
+          render json: bucketlist.errors.full_messages, status: 422
+        end
+      end
+
       protected
 
       def bucketlist_params
