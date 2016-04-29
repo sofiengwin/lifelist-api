@@ -1,5 +1,7 @@
 require "rails_helper"
 
 RSpec.describe Bucketlist, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  describe "Bucketlist validations" do
+    it { should validate_presence_of :name }
+  end
 end
