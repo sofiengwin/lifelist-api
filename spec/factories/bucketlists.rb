@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :bucketlist do
-    name "MyString"
+    name { Faker::Book.title }
     user nil
   end
 end
