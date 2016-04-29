@@ -4,18 +4,9 @@ gem "rails", "4.2.5"
 
 gem "rails-api"
 
-group :development, :test do
-  gem "sqlite3"
-  gem "spring"
-  gem "rspec-rails"
-  gem "factory_girl_rails"
-  gem "pry"
-  gem "database_cleaner"
-  gem "faker"
-  gem "shoulda-matchers"
-end
 # To use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'
+gem "jwt"
 
 # To use Jbuilder templates for JSON
 # gem 'jbuilder'
@@ -28,3 +19,13 @@ gem 'bcrypt', '~> 3.1.7'
 
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'
+group :development, :test do
+  gem "sqlite3"
+  gem "spring"
+  gem "rspec-rails"
+  gem "factory_girl_rails"
+  gem "pry"
+  gem "database_cleaner"
+  gem "faker"
+  gem "shoulda-matchers"
+end
