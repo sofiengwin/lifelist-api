@@ -37,7 +37,7 @@ RSpec.describe Api::V1::BucketlistsController, type: :request do
         post(
           "/api/v1/bucketlists",
           { bucketlist: { name: "Movies" } }.to_json,
-          { "Accept" => "application/json","Content-Type" => "application/json"}
+          "Accept" => "application/json", "Content-Type" => "application/json"
         )
       end
 
@@ -65,8 +65,8 @@ RSpec.describe Api::V1::BucketlistsController, type: :request do
   context "creating a bucketlist with invalid data" do
     before do
       post("/api/v1/bucketlists",
-      { bucketlist: { name: nil } }.to_json,
-      { "Accept" => "application/json", "Content-Type" => "application/json"})
+           { bucketlist: { name: nil } }.to_json,
+           "Accept" => "application/json", "Content-Type" => "application/json")
     end
 
     it "should return a status code of 422" do
@@ -79,12 +79,12 @@ RSpec.describe Api::V1::BucketlistsController, type: :request do
   end
 
   describe "PUT update" do
-      let(:bucketlist) { create(:bucketlist) }
+    let(:bucketlist) { create(:bucketlist) }
 
     context "updating a bucketlist with valid data" do
       before do
-        put "/api/v1/bucketlists/#{bucketlist.id}", { bucketlist: { name: "New name"}}.to_json,
-        {"Accept" => "application/json", "Content-Type" => "application/json"}
+        put "/api/v1/bucketlists/#{bucketlist.id}", { bucketlist: { name: "New name" } }.to_json,
+            "Accept" => "application/json", "Content-Type" => "application/json"
       end
 
       it "should return a status code of 200" do
@@ -102,8 +102,8 @@ RSpec.describe Api::V1::BucketlistsController, type: :request do
 
     context "updating a buckelist with invalid data" do
       before do
-        put "/api/v1/bucketlists/#{bucketlist.id}", { bucketlist: { name: nil }}.to_json,
-        {"Accept" => "application/json", "Content-Type" => "application/json"}
+        put "/api/v1/bucketlists/#{bucketlist.id}", { bucketlist: { name: nil } }.to_json,
+            "Accept" => "application/json", "Content-Type" => "application/json"
       end
 
       it "should return a status code of 422" do
