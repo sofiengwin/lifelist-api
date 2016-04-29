@@ -12,9 +12,10 @@ group :development, :test do
   gem "pry"
   gem "database_cleaner"
   gem "faker"
+  gem "shoulda-matchers"
 end
 # To use ActiveModel has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
+gem 'bcrypt', '~> 3.1.7'
 
 # To use Jbuilder templates for JSON
 # gem 'jbuilder'
