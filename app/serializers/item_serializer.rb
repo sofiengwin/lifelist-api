@@ -1,4 +1,6 @@
 class ItemSerializer < ActiveModel::Serializer
+  self.root = false
+
   attributes :id, :name, :date_created, :date_modified, :done
 
   def date_created

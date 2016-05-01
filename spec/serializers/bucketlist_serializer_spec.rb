@@ -3,7 +3,7 @@ require "rails_helper"
 describe BucketlistSerializer, type: :serializer do
   let(:bucketlist) { create(:bucketlist) }
 
-  let(:items) { create_list(:item, 5, bucketlist_id: bucketlist.id ) }
+  let(:items) { create_list(:item, 5, bucketlist_id: bucketlist.id) }
 
   let(:serializer) { BucketlistSerializer.new(bucketlist) }
 
@@ -18,7 +18,7 @@ describe BucketlistSerializer, type: :serializer do
   end
 
   it "should return an array of items belonging to the bucketlist" do
-    expect(subject[:items]).to kind_of Array
+    expect(subject[:items]).to be_an Array
   end
 
   it "should return the date the bucketlist was created" do
