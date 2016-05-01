@@ -7,6 +7,7 @@ gem "rails-api"
 # To use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'
 gem "jwt"
+gem "active_model_serializers"
 
 # To use Jbuilder templates for JSON
 # gem 'jbuilder'
@@ -25,7 +26,9 @@ group :development, :test do
   gem "rspec-rails"
   gem "factory_girl_rails"
   gem "pry"
+  gem "pry-nav"
   gem "database_cleaner"
   gem "faker"
   gem "shoulda-matchers"
+  gem "byebug"
 end

@@ -1,10 +1,10 @@
 require "rails_helper"
 
 describe "Editing Item", type: :request do
-  let(:item) { create(:item) }
 
   context "editing an item with valid data" do
-    before do
+    before(:all) do
+      item = create(:item)
       put(
         "/api/v1/bucketlists/#{item.bucketlist.id}/items/#{item.id}",
         { item: { name: "New name", done: true } }.to_json,
@@ -28,7 +28,8 @@ describe "Editing Item", type: :request do
   end
 
   context "editing an item with invalid data" do
-    before do
+    before(:all) do
+      item = create(:item)
       put(
         "/api/v1/bucketlists/#{item.bucketlist.id}/items/#{item.id}",
         { item: { name: nil, done: true } }.to_json,

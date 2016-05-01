@@ -3,7 +3,7 @@ module Api
     class BucketlistsController < ApplicationController
       def index
         bucketlists = Bucketlist.all
-        render json: bucketlists, status: 200
+        render json: bucketlists, status: 200, root: false
       end
 
       def show
@@ -17,17 +17,17 @@ module Api
         if bucketlist.save
           render json: bucketlist, status: 201, location: [:api, :v1, bucketlist]
         else
-          render json: bucketlist.errors.full_messages, status: 422
+          render json: { errors: bucketlist.errors }, status: 422
         end
       end
 
       def update
         # TODO: handle conditions where an invalid id is passed
         bucketlist = Bucketlist.find(params[:id])
-        if bucketlist.update(bucketlist_params)
+        if bucketlist.update_attributes(bucketlist_params)
           render json: bucketlist, status: 200
         else
-          render json: bucketlist.errors.full_messages, status: 422
+          render json: { errors: bucketlist.errors }, status: 422
         end
       end
 
@@ -41,7 +41,7 @@ module Api
       protected
 
       def bucketlist_params
-        params.require(:bucketlist).permit(:name)
+        params.require(:bucketlist).permit(:name, :user_id)
       end
     end
   end

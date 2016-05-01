@@ -20,6 +20,8 @@ GEM
       erubis (~> 2.7.0)
       rails-dom-testing (~> 1.0, >= 1.0.5)
       rails-html-sanitizer (~> 1.0, >= 1.0.2)
+    active_model_serializers (0.9.5)
+      activemodel (>= 3.2)
     activejob (4.2.5)
       activesupport (= 4.2.5)
       globalid (>= 0.3.0)
@@ -39,6 +41,7 @@ GEM
     arel (6.0.3)
     bcrypt (3.1.11)
     builder (3.2.2)
+    byebug (8.2.4)
     coderay (1.1.1)
     concurrent-ruby (1.0.1)
     database_cleaner (1.5.1)
@@ -72,6 +75,8 @@ GEM
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
       slop (~> 3.4)
+    pry-nav (0.2.4)
+      pry (>= 0.9.10, < 0.11.0)
     rack (1.6.4)
     rack-test (0.6.3)
       rack (>= 1.0)
@@ -141,12 +146,15 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  active_model_serializers
   bcrypt (~> 3.1.7)
+  byebug
   database_cleaner
   factory_girl_rails
   faker
   jwt
   pry
+  pry-nav
   rails (= 4.2.5)
   rails-api
   rspec-rails

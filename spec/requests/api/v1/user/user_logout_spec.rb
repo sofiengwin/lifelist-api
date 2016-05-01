@@ -2,7 +2,12 @@ require "rails_helper"
 
 describe "User Logout", type: :request do
   before(:all) do
-    @user = { email: Faker::Internet.email, password: Faker::Internet.password }
+    password = Faker::Internet.password
+    @user = {
+      email: Faker::Internet.email,
+      password: password,
+      password_confirmation: password
+    }
     @signed_user = create(:user, @user)
   end
 

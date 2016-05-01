@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :item do
-    name "Item Name"
+    name { Faker::Internet.name }
     done false
-    bucketlist factory: :bucketlist
+    bucketlist
   end
 end

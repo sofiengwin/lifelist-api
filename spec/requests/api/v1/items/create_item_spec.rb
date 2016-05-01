@@ -1,10 +1,10 @@
 require "rails_helper"
 
 describe "Item Create Action", type: :request do
-  let(:bucketlist) { create(:bucketlist) }
 
   context "creating an item with valid data" do
-    before do
+    before(:all) do
+      bucketlist = create(:bucketlist)
       post(
         "/api/v1/bucketlists/#{bucketlist.id}/items",
         { item: { name: "New item", done: false } }.to_json,
@@ -35,7 +35,8 @@ describe "Item Create Action", type: :request do
   end
 
   context "creating an item with invalid data" do
-    before do
+    before(:all) do
+      bucketlist = create(:bucketlist)
       post(
         "/api/v1/bucketlists/#{bucketlist.id}/items",
         { item: { name: nil, done: false } }.to_json,
