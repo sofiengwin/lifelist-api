@@ -26,6 +26,7 @@ group :development, :test do
   gem "rspec-rails"
   gem "factory_girl_rails"
   gem "pry"
+  gem "pry-nav"
   gem "database_cleaner"
   gem "faker"
   gem "shoulda-matchers"

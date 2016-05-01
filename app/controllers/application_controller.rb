@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::API
-
+include ActionController::Serialization
   def current_user
     @current_user || User.find(user_id) if user_id
   end
