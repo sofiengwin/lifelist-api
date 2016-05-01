@@ -4,8 +4,13 @@ module Api
       before_action :authenticate_token
 
       def index
-        bucketlists = current_user.bucketlists
-        render json: bucketlists, status: 200, root: false
+        bucketlists = current_user.bucketlists.search(params[:search])
+        # binding.pry
+        if bucketlists.empty?
+          render json: { error: "No bucketlist found" }, status: 404
+        else
+          render json: bucketlists, status: 200, root: false
+        end
       end
 
       def show

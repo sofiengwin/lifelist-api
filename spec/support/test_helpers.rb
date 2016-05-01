@@ -16,6 +16,15 @@ module Support
         json(response.body)[:auth_token]
       end
 
+      def valid_get_request(route, user)
+        get(
+          route,
+          {},
+          "Authorization" => login(user)
+        )
+
+        response
+      end
     end
   end
 end
