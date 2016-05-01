@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :bucketlist do
-    name { Faker::Book.title }
-    user factory: :user
+    name { Faker::Lorem.characters(8) }
+    user
   end
 end
