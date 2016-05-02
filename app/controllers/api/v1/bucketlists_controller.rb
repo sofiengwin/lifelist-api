@@ -19,8 +19,7 @@ module Api
       end
 
       def create
-        # TODO: handle conditions where an invalid id is passed
-        bucketlist = Bucketlist.new(bucketlist_params)
+        bucketlist = current_user.bucketlists.new(bucketlist_params)
         if bucketlist.save
           render json: bucketlist, status: 201, location: [:api, :v1, bucketlist]
         else

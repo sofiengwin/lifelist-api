@@ -6,7 +6,7 @@ describe "Creating Bucketlist" do
       user = create(:user)
       post(
         "/api/v1/bucketlists",
-        { bucketlist: { name: "Movies", user_id: user.id } }.to_json,
+        { bucketlist: { name: "Movies" } }.to_json,
         "Accept" => "application/json",
         "Content-Type" => "application/json",
         "Authorization" => login(user)
@@ -34,11 +34,12 @@ describe "Creating Bucketlist" do
   context "creating a bucketlist with invalid data" do
     before(:all) do
       user = create(:user)
-      post("/api/v1/bucketlists",
-           { bucketlist: { name: nil } }.to_json,
-           "Accept" => "application/json",
-           "Content-Type" => "application/json",
-           "Authorization" => login(user)
+      post(
+        "/api/v1/bucketlists",
+        { bucketlist: { name: nil } }.to_json,
+        "Accept" => "application/json",
+        "Content-Type" => "application/json",
+        "Authorization" => login(user)
       )
     end
 
