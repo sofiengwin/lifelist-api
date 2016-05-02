@@ -4,8 +4,10 @@ module Api
       before_action :authenticate_token
 
       def index
-        bucketlists = current_user.bucketlists.search(params[:search])
-        # binding.pry
+        bucketlists = current_user.bucketlists.search(
+          params[:search]
+        ).paginate(params)
+
         if bucketlists.empty?
           render json: { error: "No bucketlist found" }, status: 404
         else
@@ -14,23 +16,25 @@ module Api
       end
 
       def show
-        bucketlist = Bucketlist.find(params[:id])
+        bucketlist = current_user.bucketlists.find_by(id: params[:id])
         render json: bucketlist, status: 200
       end
 
       def create
-        # TODO: handle conditions where an invalid id is passed
-        bucketlist = Bucketlist.new(bucketlist_params)
+        bucketlist = current_user.bucketlists.new(bucketlist_params)
         if bucketlist.save
-          render json: bucketlist, status: 201, location: [:api, :v1, bucketlist]
+          render(
+            json: bucketlist,
+            status: 201,
+            location: [:api, :v1, bucketlist]
+          )
         else
           render json: { errors: bucketlist.errors }, status: 422
         end
       end
 
       def update
-        # TODO: handle conditions where an invalid id is passed
-        bucketlist = Bucketlist.find(params[:id])
+        bucketlist = current_user.bucketlists.find_by(params[:id])
         if bucketlist.update_attributes(bucketlist_params)
           render json: bucketlist, status: 200
         else

@@ -9,7 +9,8 @@ describe "Editing Item", type: :request do
         "/api/v1/bucketlists/#{item.bucketlist.id}/items/#{item.id}",
         { item: { name: "New name", done: true } }.to_json,
         "Accept" => "application/json",
-        "Content-Type" => "application/json"
+        "Content-Type" => "application/json",
+        "Authorization" => login(item.bucketlist.user)
       )
     end
 
@@ -34,7 +35,8 @@ describe "Editing Item", type: :request do
         "/api/v1/bucketlists/#{item.bucketlist.id}/items/#{item.id}",
         { item: { name: nil, done: true } }.to_json,
         "Accept" => "application/json",
-        "Content-Type" => "application/json"
+        "Content-Type" => "application/json",
+        "Authorization" => login(item.bucketlist.user)
       )
     end
 

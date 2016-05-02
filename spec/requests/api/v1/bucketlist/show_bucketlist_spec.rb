@@ -1,10 +1,10 @@
 require "rails_helper"
 
 describe "Show Action" do
-  let(:bucketlist) { create(:bucketlist, name: "Coding") }
-
-  before do
-    get "/api/v1/bucketlists/#{bucketlist.id}"
+  before(:all) do
+    user = create(:user)
+    bucketlist = create(:bucketlist, name: "Coding", user_id: user.id)
+    valid_get_request("/api/v1/bucketlists/#{bucketlist.id}", user)
   end
 
   it "should return a status code of 200" do
