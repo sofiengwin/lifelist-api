@@ -4,7 +4,10 @@ module Api
       before_action :authenticate_token
 
       def create
-        bucketlist = Bucketlist.find(params[:bucketlist_id])
+        bucketlist = current_user.bucketlists.find_by(
+          id: params[:bucketlist_id]
+        )
+
         item = bucketlist.items.new(item_params)
         if item.save
           render json: item, status: 201
@@ -14,7 +17,7 @@ module Api
       end
 
       def update
-        item = Item.find(params[:id])
+        item = Item.find_by(id: params[:id])
         if item.update(item_params)
           render json: item, status: 200
         else
@@ -23,7 +26,7 @@ module Api
       end
 
       def destroy
-        item = Item.find(params[:id])
+        item = Item.find_by(id: params[:id])
         item.destroy
         render json: { success: "Item deleted successfully" }, status: 200
       end

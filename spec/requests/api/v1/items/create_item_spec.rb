@@ -9,7 +9,8 @@ describe "Item Create Action", type: :request do
         "/api/v1/bucketlists/#{bucketlist.id}/items",
         { item: { name: "New item", done: false } }.to_json,
         "Accept" => "application/json",
-        "Content-Type" => "application/json"
+        "Content-Type" => "application/json",
+        "Authorization" => login(bucketlist.user)
       )
     end
 
@@ -20,12 +21,6 @@ describe "Item Create Action", type: :request do
     it "should return json data" do
       expect(Mime::JSON).to eq response.content_type
     end
-
-    # it "should return the correct location" do
-    #   item_id = json(response.body)[:id]
-    #   binding.pry
-    #   expect(response.location).to eq api_v1_bucketlist_item_url(item_id)
-    # end
 
     it "should return the created item" do
       item = json(response.body)
@@ -41,7 +36,8 @@ describe "Item Create Action", type: :request do
         "/api/v1/bucketlists/#{bucketlist.id}/items",
         { item: { name: nil, done: false } }.to_json,
         "Accept" => "application/json",
-        "Content-Type" => "application/json"
+        "Content-Type" => "application/json",
+        "Authorization" => login(bucketlist.user)
       )
     end
 
