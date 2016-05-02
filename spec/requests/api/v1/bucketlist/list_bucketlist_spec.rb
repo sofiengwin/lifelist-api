@@ -95,7 +95,6 @@ describe "Listing Bucketlist" do
 
       it "returns the correct bucketlists" do
         result = json(response.body)
-        # binding.pry
         expect(result[0][:name]).to eq @bucketlists[1].name
         expect(result[1][:name]).to eq @bucketlists[2].name
       end
