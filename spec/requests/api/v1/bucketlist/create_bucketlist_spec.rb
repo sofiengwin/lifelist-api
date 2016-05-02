@@ -17,7 +17,7 @@ describe "Creating Bucketlist" do
       )
     end
 
-    it "should return a status code of 200" do
+    it "should return a status code of 201" do
       expect(response.status).to eq 201
     end
 
