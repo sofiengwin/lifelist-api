@@ -25,6 +25,14 @@ module Support
 
         response
       end
+
+      def delete_request(route, user)
+        delete(
+          route,
+          {},
+          "Authorization" => login(user)
+        )
+      end
     end
   end
 end

@@ -5,9 +5,16 @@ describe "Updating bucketlist" do
 
   context "updating a bucketlist with valid data" do
     before(:all) do
-      b = create(:bucketlist)
-      put "/api/v1/bucketlists/#{b.id}", { bucketlist: { name: "New name" } }.to_json,
-          "Accept" => "application/json", "Content-Type" => "application/json"
+      user = create(:user)
+      bucketlist = create(:bucketlist, user_id: user.id)
+
+      put(
+        "/api/v1/bucketlists/#{bucketlist.id}",
+        { bucketlist: { name: "New name" } }.to_json,
+        "Accept" => "application/json",
+        "Content-Type" => "application/json",
+        "Authorization" => login(user)
+      )
     end
 
     it "should return a status code of 200" do
@@ -25,9 +32,16 @@ describe "Updating bucketlist" do
 
   context "updating a buckelist with invalid data" do
     before(:all) do
-      b = create(:bucketlist)
-      put "/api/v1/bucketlists/#{b.id}", { bucketlist: { name: nil } }.to_json,
-          "Accept" => "application/json", "Content-Type" => "application/json"
+      user = create(:user)
+      bucketlist = create(:bucketlist, user_id: user.id)
+
+      put(
+        "/api/v1/bucketlists/#{bucketlist.id}",
+        { bucketlist: { name: nil } }.to_json,
+        "Accept" => "application/json",
+        "Content-Type" => "application/json",
+        "Authorization" => login(user)
+      )
     end
 
     it "should return a status code of 422" do

@@ -1,6 +1,8 @@
 module Api
   module V1
     class ItemsController < ApplicationController
+      before_action :authenticate_token
+
       def create
         bucketlist = Bucketlist.find(params[:bucketlist_id])
         item = bucketlist.items.new(item_params)
