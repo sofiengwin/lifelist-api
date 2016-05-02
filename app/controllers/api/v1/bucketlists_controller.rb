@@ -1,9 +1,16 @@
 module Api
   module V1
     class BucketlistsController < ApplicationController
+      before_action :authenticate_token
+
       def index
-        bucketlists = Bucketlist.all
-        render json: bucketlists, status: 200, root: false
+        bucketlists = current_user.bucketlists.search(params[:search])
+        # binding.pry
+        if bucketlists.empty?
+          render json: { error: "No bucketlist found" }, status: 404
+        else
+          render json: bucketlists, status: 200, root: false
+        end
       end
 
       def show
