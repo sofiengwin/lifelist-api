@@ -1,6 +1,8 @@
 module Api
   module V1
     class BucketlistsController < ApplicationController
+      include ResourceHelper
+
       before_action :authenticate_token
 
       def index
@@ -17,6 +19,7 @@ module Api
 
       def show
         bucketlist = current_user.bucketlists.find_by(id: params[:id])
+        return not_found unless bucketlist
         render json: bucketlist, status: 200
       end
 
@@ -34,7 +37,8 @@ module Api
       end
 
       def update
-        bucketlist = current_user.bucketlists.find_by(params[:id])
+        bucketlist = current_user.bucketlists.find_by(id: params[:id])
+        return not_found unless bucketlist
         if bucketlist.update_attributes(bucketlist_params)
           render json: bucketlist, status: 200
         else
@@ -43,13 +47,13 @@ module Api
       end
 
       def destroy
-        # TODO: handle conditions where an invalid id is passed
-        bucketlist = Bucketlist.find(params[:id])
+        bucketlist = current_user.bucketlists.find_by(id: params[:id])
+        return not_found unless bucketlist
         bucketlist.destroy
         render json: { notice: "bucketlist deleted" }, status: 200
       end
 
-      protected
+      private
 
       def bucketlist_params
         params.require(:bucketlist).permit(:name, :user_id)
