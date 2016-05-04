@@ -47,12 +47,9 @@ Run the following command from the terminal to get all tests running
 rspec spec
 ```
 
-## Setting up the server
+## API EndPoint
 
-Run the following command to start the server
-```
-rails server
-```
+The following endpoints are available
 
 | EndPoint                                |   Functionality                      |
 | --------------------------------------- | ------------------------------------:|
