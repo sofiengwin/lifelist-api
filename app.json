@@ -1,0 +1,15 @@
+{
+  "name": "lifelist-api",
+  "scripts": {
+  },
+  "env": {
+  },
+  "formation": {
+  },
+  "addons": [
+
+  ],
+  "buildpacks": [
+
+  ]
+}
