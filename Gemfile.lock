@@ -77,6 +77,7 @@ GEM
     minitest (5.8.4)
     nokogiri (1.6.7.2)
       mini_portile2 (~> 2.0.0.rc2)
+    pg (0.18.4)
     pry (0.10.3)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
@@ -108,6 +109,11 @@ GEM
       rails-deprecated_sanitizer (>= 1.0.1)
     rails-html-sanitizer (1.0.3)
       loofah (~> 2.0)
+    rails_12factor (0.0.2)
+      rails_serve_static_assets
+      rails_stdout_logging
+    rails_serve_static_assets (0.0.4)
+    rails_stdout_logging (0.0.4)
     railties (4.2.5)
       actionpack (= 4.2.5)
       activesupport (= 4.2.5)
@@ -167,10 +173,12 @@ DEPENDENCIES
   factory_girl_rails
   faker
   jwt
+  pg
   pry
   pry-nav
   rails (= 4.2.5)
   rails-api
+  rails_12factor
   rspec-rails
   shoulda-matchers
   spring
