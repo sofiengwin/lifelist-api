@@ -4,9 +4,7 @@ ruby "2.3.0"
 gem "rails", "4.2.5"
 
 gem "rails-api"
-
-# To use ActiveModel has_secure_password
-gem 'bcrypt', '~> 3.1.7'
+gem "bcrypt", "~> 3.1.7"
 gem "jwt"
 gem "active_model_serializers"
 gem "pg"

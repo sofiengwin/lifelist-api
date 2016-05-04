@@ -47,11 +47,7 @@ Run the following command from the terminal to get all tests running
 rspec spec
 ```
 
-<<<<<<< 88de387d08fa8120dbafe7c25bf3807befe5f590
-## API EndPoint
-=======
 ## API EndPoints
->>>>>>>  feat(readme): add read me file
 
 The following endpoints are available
 
