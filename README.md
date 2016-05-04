@@ -47,7 +47,7 @@ Run the following command from the terminal to get all tests running
 rspec spec
 ```
 
-## API EndPoint
+## API EndPoints
 
 The following endpoints are available
 
