@@ -1,5 +1,6 @@
 source "https://rubygems.org"
 
+ruby "2.3.0"
 gem "rails", "4.2.5"
 
 gem "rails-api"
@@ -30,5 +31,5 @@ group :development, :test do
   gem "database_cleaner"
   gem "faker"
   gem "shoulda-matchers"
-  gem "byebug"
+  gem "coveralls", require: false
 end

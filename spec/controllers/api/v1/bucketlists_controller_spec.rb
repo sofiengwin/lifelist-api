@@ -1,5 +1,4 @@
 require "rails_helper"
-require "support/index_action_shared_examples"
 
 RSpec.describe Api::V1::BucketlistsController, type: :controller do
   before(:all) do
