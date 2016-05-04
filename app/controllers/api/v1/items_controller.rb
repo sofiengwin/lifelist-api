@@ -1,13 +1,14 @@
 module Api
   module V1
     class ItemsController < ApplicationController
+      include ResourceHelper
       before_action :authenticate_token
+      before_action :confirm_ownership, only: [:update, :destroy]
 
       def create
         bucketlist = current_user.bucketlists.find_by(
           id: params[:bucketlist_id]
         )
-
         item = bucketlist.items.new(item_params)
         if item.save
           render json: item, status: 201
@@ -35,6 +36,18 @@ module Api
 
       def item_params
         params.require(:item).permit(:name, :done)
+      end
+
+      def confirm_ownership
+        bucketlist = current_user.bucketlists.find_by(
+          id: params[:bucketlist_id]
+        )
+
+        return not_found unless bucketlist
+
+        item = bucketlist.items.find_by(id: params[:id])
+
+        return not_found unless item
       end
     end
   end
