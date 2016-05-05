@@ -7,7 +7,7 @@ module Api
 
       def index
         bucketlists = current_user.bucketlists.search(
-          params[:search]
+          params[:q]
         ).paginate(params)
 
         if bucketlists.empty?

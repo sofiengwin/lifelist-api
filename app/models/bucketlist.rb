@@ -1,6 +1,6 @@
 class Bucketlist < ActiveRecord::Base
   belongs_to :user
-  has_many :items
+  has_many :items, dependent: :destroy
 
   validates :name, presence: true, uniqueness: true
 
@@ -10,7 +10,7 @@ class Bucketlist < ActiveRecord::Base
 
   scope :paginate, lambda { |params = {}|
     set_limit = params[:limit] || 5
-    page = params[:page] || 0
+    page = params[:page] || 1
     set_limit = set_limit.to_i > 5 ? 5 : set_limit.to_i
     set_offset = (page.to_i * set_limit) - 1
     limit(set_limit).offset(set_offset)

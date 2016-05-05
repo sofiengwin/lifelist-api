@@ -44,7 +44,7 @@ describe "Listing Bucketlist" do
         current_user = create(:user)
         create(:bucketlist, name: "Read Pragmatic Programmer", user_id: current_user.id)
         create(:bucketlist, name: "Read Seven Languages In Seven Days", user_id: current_user.id)
-        valid_get_request("/api/v1/bucketlists?search=read", current_user)
+        valid_get_request("/api/v1/bucketlists?q=read", current_user)
       end
 
       it "should return a status code of 200" do
@@ -65,7 +65,7 @@ describe "Listing Bucketlist" do
     context "invalid search query" do
       before(:all) do
         user = create(:user)
-        valid_get_request("/api/v1/bucketlists?search=invalid", user)
+        valid_get_request("/api/v1/bucketlists?q=invalid", user)
       end
 
       it "should return a status code of 404" do
