@@ -9,6 +9,7 @@ module Api
         bucketlist = current_user.bucketlists.find_by(
           id: params[:bucketlist_id]
         )
+        return not_found unless bucketlist
         item = bucketlist.items.new(item_params)
         if item.save
           render json: item, status: 201
