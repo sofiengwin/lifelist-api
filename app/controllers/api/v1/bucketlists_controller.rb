@@ -18,9 +18,7 @@ module Api
       end
 
       def show
-        bucketlist = current_user.bucketlists.find_by(id: params[:id])
-        return not_found unless bucketlist
-        render json: bucketlist, status: 200
+        render json: @bucketlist, status: 200
       end
 
       def create
@@ -37,19 +35,19 @@ module Api
       end
 
       def update
-        bucketlist = current_user.bucketlists.find_by(id: params[:id])
-        return not_found unless bucketlist
-        if bucketlist.update_attributes(bucketlist_params)
-          render json: bucketlist, status: 200
+        # bucketlist = current_user.bucketlists.find_by(id: params[:id])
+        # return not_found unless bucketlist
+        if @bucketlist.update_attributes(bucketlist_params)
+          render json: @bucketlist, status: 200
         else
-          render json: { errors: bucketlist.errors }, status: 422
+          render json: { errors: @bucketlist.errors }, status: 422
         end
       end
 
       def destroy
-        bucketlist = current_user.bucketlists.find_by(id: params[:id])
-        return not_found unless bucketlist
-        bucketlist.destroy
+        # bucketlist = current_user.bucketlists.find_by(id: params[:id])
+        # return not_found unless bucketlist
+        @bucketlist.destroy
         render json: { notice: "bucketlist deleted" }, status: 200
       end
 

@@ -7,9 +7,11 @@ gem "rails-api"
 gem "bcrypt", "~> 3.1.7"
 gem "jwt"
 gem "active_model_serializers"
-gem "pg"
-gem "rails_12factor"
 
+group :production do
+  gem "rails_12factor"
+  gem "pg"
+end
 # To use Jbuilder templates for JSON
 # gem 'jbuilder'
 
