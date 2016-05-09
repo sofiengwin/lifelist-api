@@ -15,4 +15,35 @@ RSpec.describe Bucketlist, type: :model do
     it { should belong_to :user }
     it { should have_many :items }
   end
+
+  describe "#paginate" do
+    before(:all) do
+      Bucketlist.destroy_all
+      @bucketlists = create_list(:bucketlist, 50)
+    end
+
+    context "valid paginate request" do
+      let(:paginate) { Bucketlist.paginate(page: 1, limit: 20) }
+      it "should return 30 bucketlists" do
+        expect(paginate.count).to eq 20
+      end
+
+      it "should return bucketlists in the second page" do
+        expect(paginate.first.name).to eq @bucketlists[19].name
+        expect(paginate.last.name).to eq @bucketlists[38].name
+      end
+    end
+
+    context "default pagination" do
+      let(:paginate) { Bucketlist.paginate }
+      it "should return 20 bucketlists" do
+        expect(paginate.count).to eq 20
+      end
+
+      it "should return bucketlists in the first page" do
+        expect(paginate.first.name).to eq @bucketlists[0].name
+        expect(paginate.last.name).to eq @bucketlists[19].name
+      end
+    end
+  end
 end

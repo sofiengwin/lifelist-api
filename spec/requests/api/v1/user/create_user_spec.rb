@@ -28,10 +28,6 @@ describe "User Creation", type: :request do
       expect(Mime::JSON).to eq response.content_type
     end
 
-    it "should return the location data" do
-      expect(response.location).to eq api_v1_user_url(json(response.body)[:id])
-    end
-
     it "should return the newly created user" do
       user = json(response.body)
       expect(user[:name]).to eq new_user[:name]

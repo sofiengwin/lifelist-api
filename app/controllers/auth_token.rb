@@ -1,3 +1,4 @@
+require "jwt"
 class AuthToken
   def encode(user_id, exp = 24.hours.from_now)
     payload = { user: user_id, exp: exp.to_i }

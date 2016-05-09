@@ -8,7 +8,7 @@ describe "Deleting Bucketlist" do
     expect(response.status).to eq 200
   end
 
-  it "should success message" do
+  it "should  return a success message" do
     bucketlist = create(:bucketlist, user_id: user.id)
     delete_request("/api/v1/bucketlists/#{bucketlist.id}", user)
     expect(json(response.body)[:notice]).to eq "bucketlist deleted"

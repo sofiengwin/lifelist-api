@@ -2,9 +2,10 @@ require "rails_helper"
 
 describe "Show Action" do
   before(:all) do
-    user = create(:user)
-    bucketlist = create(:bucketlist, name: "Coding", user_id: user.id)
-    valid_get_request("/api/v1/bucketlists/#{bucketlist.id}", user)
+    user = create(:user, status: true)
+    token = AuthToken.new.encode(user.id)
+    bucketlist = create(:bucketlist, name: "Coding", user: user)
+    valid_get_request("/api/v1/bucketlists/#{bucketlist.id}", token)
   end
 
   it "should return a status code of 200" do

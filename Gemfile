@@ -7,20 +7,12 @@ gem "rails-api"
 gem "bcrypt", "~> 3.1.7"
 gem "jwt"
 gem "active_model_serializers"
-gem "pg"
-gem "rails_12factor"
 
-# To use Jbuilder templates for JSON
-# gem 'jbuilder'
+group :production do
+  gem "rails_12factor"
+  gem "pg"
+end
 
-# Use unicorn as the app server
-# gem 'unicorn'
-
-# Deploy with Capistrano
-# gem 'capistrano', :group => :development
-
-# To use debugger
-# gem 'ruby-debug19', :require => 'ruby-debug'
 group :development, :test do
   gem "sqlite3"
   gem "spring"

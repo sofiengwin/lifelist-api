@@ -10,7 +10,7 @@ describe "Item Create Action", type: :request do
         { item: { name: "New item", done: false } }.to_json,
         "Accept" => "application/json",
         "Content-Type" => "application/json",
-        "Authorization" => login(bucketlist.user)
+        "Authorization" => AuthToken.new.encode(bucketlist.user.id)
       )
     end
 
@@ -37,7 +37,7 @@ describe "Item Create Action", type: :request do
         { item: { name: nil, done: false } }.to_json,
         "Accept" => "application/json",
         "Content-Type" => "application/json",
-        "Authorization" => login(bucketlist.user)
+        "Authorization" => AuthToken.new.encode(bucketlist.user.id)
       )
     end
 

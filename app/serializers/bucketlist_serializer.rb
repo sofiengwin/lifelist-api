@@ -14,6 +14,6 @@ class BucketlistSerializer < ActiveModel::Serializer
   end
 
   def created_by
-    object.user.id
+    object.user_id
   end
 end

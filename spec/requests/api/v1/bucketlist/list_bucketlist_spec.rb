@@ -22,9 +22,10 @@ describe "Listing Bucketlist" do
 
   context "when user is logged in" do
     before(:all) do
-      @current_user = create(:user)
+      @current_user = create(:user, status: true)
       @bucketlists = create_list(:bucketlist, 5, user_id: @current_user.id)
-      valid_get_request("/api/v1/bucketlists", @current_user)
+      token = AuthToken.new.encode(@current_user.id)
+      valid_get_request("/api/v1/bucketlists", token)
     end
 
     it "should return a status code of 200" do
@@ -41,10 +42,11 @@ describe "Listing Bucketlist" do
   describe "search" do
     context "valid search query" do
       before(:all) do
-        current_user = create(:user)
-        create(:bucketlist, name: "Read Pragmatic Programmer", user_id: current_user.id)
-        create(:bucketlist, name: "Read Seven Languages In Seven Days", user_id: current_user.id)
-        valid_get_request("/api/v1/bucketlists?search=read", current_user)
+        current_user = create(:user, status: true)
+        token = AuthToken.new.encode(current_user.id)
+        create(:bucketlist, name: "Read Pragmatic", user_id: current_user.id)
+        create(:bucketlist, name: "Read style guide", user_id: current_user.id)
+        valid_get_request("/api/v1/bucketlists?q=read", token)
       end
 
       it "should return a status code of 200" do
@@ -64,8 +66,9 @@ describe "Listing Bucketlist" do
 
     context "invalid search query" do
       before(:all) do
-        user = create(:user)
-        valid_get_request("/api/v1/bucketlists?search=invalid", user)
+        user = create(:user, status: true)
+        token = AuthToken.new.encode(user.id)
+        valid_get_request("/api/v1/bucketlists?q=invalid", token)
       end
 
       it "should return a status code of 404" do
@@ -80,44 +83,32 @@ describe "Listing Bucketlist" do
 
   describe "pagination" do
     before(:all) do
-      @user = create(:user)
-      @bucketlists = create_list(:bucketlist, 10, user_id: @user.id)
+      Bucketlist.destroy_all
+      user = create(:user, status: true)
+      @token = AuthToken.new.encode(user.id)
+      @bucketlists = create_list(:bucketlist, 20, user: user)
     end
 
     context "limit is passed in params" do
       before(:all) do
-        valid_get_request("/api/v1/bucketlists?page=1&limit=2", @user)
+        valid_get_request("/api/v1/bucketlists?page=1&limit=10", @token)
       end
 
-      it "returns only two records" do
-        expect(json(response.body).count).to eq 2
+      it "returns only twenty records" do
+        result = json(response.body)
+        expect(result.count).to eq 10
       end
 
       it "returns the correct bucketlists" do
         result = json(response.body)
-        expect(result[0][:name]).to eq @bucketlists[1].name
-        expect(result[1][:name]).to eq @bucketlists[2].name
+        expect(result.first[:name]).to eq @bucketlists[9].name
+        expect(result.last[:name]).to eq @bucketlists[18].name
       end
     end
 
-    context "no limit is passed in params" do
+    context "invalid page number and limit" do
       before(:all) do
-        valid_get_request("/api/v1/bucketlists?page=2", @user)
-      end
-
-      it "returns default number of bucketlists" do
-        expect(json(response.body).count).to eq 1
-      end
-
-      it "returns the correct bucketlists" do
-        result = json(response.body)
-        expect(result[0][:name]).to eq @bucketlists[9].name
-      end
-    end
-
-    context "invalid page number" do
-      before(:all) do
-        valid_get_request("/api/v1/bucketlists?page=10&limit=2", @user)
+        valid_get_request("/api/v1/bucketlists?page=10&limit=10", @token)
       end
 
       it "returns a status code of 404" do
@@ -131,7 +122,7 @@ describe "Listing Bucketlist" do
 
     context "valid page number" do
       before(:all) do
-        valid_get_request("/api/v1/bucketlists?page=2&limit=2", @user)
+        valid_get_request("/api/v1/bucketlists?page=2&limit=2", @token)
       end
 
       it "returns only two bucketlists" do
@@ -140,8 +131,8 @@ describe "Listing Bucketlist" do
 
       it "returns the correct bucketlists" do
         result = json(response.body)
-        expect(result[0][:name]).to eq @bucketlists[3].name
-        expect(result[1][:name]).to eq @bucketlists[4].name
+        expect(result.first[:name]).to eq @bucketlists[3].name
+        expect(result.last[:name]).to eq @bucketlists[4].name
       end
     end
   end
