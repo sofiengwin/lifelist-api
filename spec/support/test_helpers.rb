@@ -6,21 +6,14 @@ module Support
       end
 
       def login(user)
-        post(
-          "/api/v1/auth/login",
-          { email: user.email, password: user.password }.to_json,
-          "Accept" => "application/json",
-          "Content-Type" => "application/json"
-        )
-
-        json(response.body)[:auth_token]
+        AuthToken.new.encode(user.id)
       end
 
-      def valid_get_request(route, user)
+      def valid_get_request(route, token)
         get(
           route,
           {},
-          "Authorization" => login(user)
+          "Authorization" => token
         )
 
         response

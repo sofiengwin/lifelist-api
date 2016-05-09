@@ -1,9 +1,9 @@
 module Api
   module V1
     class BucketlistsController < ApplicationController
-      include ResourceHelper
-
       before_action :authenticate_token
+      include ResourceHelper
+      skip_before_action :confirm_ownership, only: [:index, :create]
 
       def index
         bucketlists = current_user.bucketlists.search(
@@ -35,8 +35,6 @@ module Api
       end
 
       def update
-        # bucketlist = current_user.bucketlists.find_by(id: params[:id])
-        # return not_found unless bucketlist
         if @bucketlist.update_attributes(bucketlist_params)
           render json: @bucketlist, status: 200
         else
@@ -45,8 +43,6 @@ module Api
       end
 
       def destroy
-        # bucketlist = current_user.bucketlists.find_by(id: params[:id])
-        # return not_found unless bucketlist
         @bucketlist.destroy
         render json: { notice: "bucketlist deleted" }, status: 200
       end
