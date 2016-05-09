@@ -16,15 +16,4 @@ class Bucketlist < ActiveRecord::Base
     limit(set_limit).offset(set_offset)
   }
 
-  # def set_offset(limit, page)
-  #   if page == 0
-  #     return 0
-  #   else
-  #     (page.to_i * set_limit(limit)) - 1
-  #   end
-  # end
-  #
-  # def set_limit(limit)
-  # limit.to_i > 100 ? 100 : limit.to_i
-  # end
 end

@@ -28,10 +28,8 @@ describe "User Creation", type: :request do
       expect(Mime::JSON).to eq response.content_type
     end
 
-    it "should return the newly created user" do
-      user = json(response.body)
-      expect(user[:name]).to eq new_user[:name]
-      expect(user[:email]).to eq new_user[:email]
+    it "should return success message" do
+      expect(json(response.body)[:message]).to eq "Account created"
     end
   end
 
