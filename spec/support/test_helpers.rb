@@ -9,14 +9,12 @@ module Support
         AuthToken.new.encode(user.id)
       end
 
-      def valid_get_request(route, token)
+      def valid_get_request(route, user)
         get(
           route,
           {},
-          "Authorization" => token
+          "Authorization" => login(user)
         )
-
-        response
       end
 
       def delete_request(route, user)

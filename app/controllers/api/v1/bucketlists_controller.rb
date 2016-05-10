@@ -6,10 +6,8 @@ module Api
       skip_before_action :confirm_ownership, only: [:index, :create]
 
       def index
-        bucketlists = current_user.bucketlists.search(
-          params[:q]
-        ).paginate(params)
-
+        bucketlists = current_user.bucketlists.search(params[:q]).
+                      paginate(params)
         if bucketlists.empty?
           render json: { error: "No bucketlist found" }, status: 404
         else
@@ -24,11 +22,7 @@ module Api
       def create
         bucketlist = current_user.bucketlists.new(bucketlist_params)
         if bucketlist.save
-          render(
-            json: bucketlist,
-            status: 201,
-            location: [:api, :v1, bucketlist]
-          )
+          render json: bucketlist, status: 201
         else
           render json: { errors: bucketlist.errors }, status: 422
         end
@@ -50,7 +44,7 @@ module Api
       private
 
       def bucketlist_params
-        params.require(:bucketlist).permit(:name, :user_id)
+        params.require(:bucketlist).permit(:name)
       end
     end
   end

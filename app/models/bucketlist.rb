@@ -1,5 +1,6 @@
 class Bucketlist < ActiveRecord::Base
   belongs_to :user
+
   has_many :items, dependent: :destroy
 
   validates :name, presence: true, uniqueness: true
@@ -15,5 +16,4 @@ class Bucketlist < ActiveRecord::Base
     set_offset = page == 0 ? 0 : (page.to_i * set_limit) - 1
     limit(set_limit).offset(set_offset)
   }
-
 end

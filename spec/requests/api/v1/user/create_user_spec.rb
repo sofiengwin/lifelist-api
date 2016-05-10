@@ -2,14 +2,14 @@ require "rails_helper"
 
 describe "User Creation", type: :request do
   context "creating a user with valid data" do
-    let(:new_user) {
+    let(:new_user) do
       {
         name: Faker::Name.name,
         email: Faker::Internet.email,
         password: "password",
         password_confirmation: "password"
       }
-    }
+    end
 
     before do
       post(
@@ -20,28 +20,28 @@ describe "User Creation", type: :request do
       )
     end
 
-    it "should return a status code of 201" do
+    it "returns a status code of 201" do
       expect(response.status).to eq 201
     end
 
-    it "should return json data" do
+    it "returns json data" do
       expect(Mime::JSON).to eq response.content_type
     end
 
-    it "should return success message" do
+    it "returns success message" do
       expect(json(response.body)[:message]).to eq "Account created"
     end
   end
 
   context "creating a user with invalid data" do
-    let(:invalid_user) {
+    let(:invalid_user) do
       {
         name: nil,
         email: nil,
         password: "pass",
         password_confirmation: "pass"
       }
-    }
+    end
 
     before do
       post(
@@ -52,15 +52,15 @@ describe "User Creation", type: :request do
       )
     end
 
-    it "should return a status code of 422" do
+    it "returns a status code of 422" do
       expect(response.status).to eq 422
     end
 
-    it "should return json data" do
+    it "returns json data" do
       expect(response.content_type).to eq Mime::JSON
     end
 
-    it "should return activer model validation errors" do
+    it "returns activer model validation errors" do
       result = json(response.body)
       expect(result[:errors][:name]).to include "can't be blank"
       expect(result[:errors][:email]).to include "can't be blank"

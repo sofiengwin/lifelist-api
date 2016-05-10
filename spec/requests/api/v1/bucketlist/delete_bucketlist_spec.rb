@@ -2,7 +2,7 @@ require "rails_helper"
 
 describe "Deleting Bucketlist" do
   let(:user) { create(:user) }
-  it "should return a status code of 204" do
+  it "returns a status code of 204" do
     bucketlist = create(:bucketlist, user_id: user.id)
     delete_request("/api/v1/bucketlists/#{bucketlist.id}", user)
     expect(response.status).to eq 200

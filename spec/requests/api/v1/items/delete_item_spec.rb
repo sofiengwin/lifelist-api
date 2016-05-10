@@ -10,11 +10,11 @@ describe "Deleting Item" do
       )
     end
 
-    it "should return a status code of 204" do
+    it "returns a status code of 204" do
       expect(response.status).to eq 200
     end
 
-    it "should return a success message" do
+    it "returns a success message" do
       expect(json(response.body)[:success]).to eq "Item deleted successfully"
     end
   end
