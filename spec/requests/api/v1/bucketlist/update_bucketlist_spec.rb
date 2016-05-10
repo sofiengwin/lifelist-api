@@ -18,15 +18,15 @@ describe "Updating bucketlist" do
       )
     end
 
-    it "should return a status code of 200" do
+    it "returns a status code of 200" do
       expect(response.status).to eq 200
     end
 
-    it "should return json data" do
+    it "returns json data" do
       expect(Mime::JSON).to eq response.content_type
     end
 
-    it "should return the updated buckelist" do
+    it "returns the updated buckelist" do
       expect(json(response.body)[:name]).to eq "New name"
     end
   end
@@ -46,11 +46,11 @@ describe "Updating bucketlist" do
       )
     end
 
-    it "should return a status code of 422" do
+    it "returns a status code of 422" do
       expect(response.status).to eq 422
     end
 
-    it "should return the full error messages" do
+    it "return the full error messages" do
       expect(json(response.body)[:errors][:name]).to include(
         "can't be blank"
       )

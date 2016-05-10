@@ -14,7 +14,7 @@ RSpec.describe Api::V1::ItemsController, type: :controller do
 
   before(:each) do
     allow_any_instance_of(ApplicationController).
-    to receive(:current_user).and_return(@user)
+      to receive(:current_user).and_return(@user)
   end
 
   describe "POST create" do
@@ -51,7 +51,7 @@ RSpec.describe Api::V1::ItemsController, type: :controller do
       before(:each) do
         put(
           :update,
-          { bucketlist_id: 100, id: 100, item: attributes_for(:item) }
+          bucketlist_id: 100, id: 100, item: attributes_for(:item)
         )
       end
 

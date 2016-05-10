@@ -8,7 +8,7 @@ RSpec.describe Api::V1::BucketlistsController, type: :controller do
 
   before(:each) do
     allow_any_instance_of(ApplicationController).
-    to receive(:current_user).and_return(@current_user)
+      to receive(:current_user).and_return(@current_user)
   end
 
   describe "GET index" do
@@ -21,7 +21,7 @@ RSpec.describe Api::V1::BucketlistsController, type: :controller do
         expect(response.status).to eq 200
       end
 
-      it "returns bucketlist belonging to current user" do
+      it "return bucketlists belonging to current user" do
         created_by_ids = json(response.body).map { |hsh| hsh[:created_by] }
         result = created_by_ids.all? { |id| id == @current_user.id }
         expect(result).to eq true
@@ -46,7 +46,7 @@ RSpec.describe Api::V1::BucketlistsController, type: :controller do
 
     context "when bucketlist does not exist" do
       before(:each) do
-        get :show, id: "f"
+        get :show, id: 100
       end
 
       it "returns a status code of 400" do
@@ -69,7 +69,7 @@ RSpec.describe Api::V1::BucketlistsController, type: :controller do
         expect(response.status).to eq 201
       end
 
-      it "returns created bucketlist" do
+      it "returns the created bucketlist" do
         expect(json(response.body)[:name]).to eq "Coding"
       end
     end
@@ -103,7 +103,7 @@ RSpec.describe Api::V1::BucketlistsController, type: :controller do
         expect(response.status).to eq 200
       end
 
-      it "returns updated bucketlist" do
+      it "returns the updated bucketlist" do
         expect(json(response.body)[:name]).to eq @bucketlists[0].reload.name
       end
     end

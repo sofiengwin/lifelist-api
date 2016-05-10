@@ -12,7 +12,7 @@ describe "User Login" do
   end
 
   context "with valid login details" do
-    before do
+    before(:all) do
       post(
         "/api/v1/auth/login",
         { email: @user[:email], password: @user[:password] }.to_json,
@@ -21,15 +21,15 @@ describe "User Login" do
       )
     end
 
-    it "should return a status code of 200" do
+    it "returns a status code of 200" do
       expect(response.status).to eq 200
     end
 
-    it "should return json data" do
+    it "returns json data" do
       expect(response.content_type).to eq Mime::JSON
     end
 
-    it "should return success message" do
+    it "returns success message" do
       expect(json(response.body)[:success]).to eq "Logged in successfully"
     end
 
@@ -39,7 +39,7 @@ describe "User Login" do
   end
 
   context "with invalid login details" do
-    before do
+    before(:all) do
       post(
         "/api/v1/auth/login",
         {
@@ -51,15 +51,15 @@ describe "User Login" do
       )
     end
 
-    it "should a status code of 422" do
+    it "returns a status code of 422" do
       expect(response.status).to eq 422
     end
 
-    it "should return json data" do
+    it "returns json data" do
       expect(response.content_type).to eq Mime::JSON
     end
 
-    it "should return error message" do
+    it "returns error message" do
       expect(json(response.body)[:error]).to eq "Unable to login"
     end
   end

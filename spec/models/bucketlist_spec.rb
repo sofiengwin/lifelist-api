@@ -24,11 +24,11 @@ RSpec.describe Bucketlist, type: :model do
 
     context "valid paginate request" do
       let(:paginate) { Bucketlist.paginate(page: 1, limit: 20) }
-      it "should return 30 bucketlists" do
+      it "return the first 20 bucketlists" do
         expect(paginate.count).to eq 20
       end
 
-      it "should return bucketlists in the second page" do
+      it "return bucketlists in the second page" do
         expect(paginate.first.name).to eq @bucketlists[19].name
         expect(paginate.last.name).to eq @bucketlists[38].name
       end
@@ -36,11 +36,11 @@ RSpec.describe Bucketlist, type: :model do
 
     context "default pagination" do
       let(:paginate) { Bucketlist.paginate }
-      it "should return 20 bucketlists" do
+      it "return 20 bucketlists" do
         expect(paginate.count).to eq 20
       end
 
-      it "should return bucketlists in the first page" do
+      it "returns bucketlists in the first page" do
         expect(paginate.first.name).to eq @bucketlists[0].name
         expect(paginate.last.name).to eq @bucketlists[19].name
       end

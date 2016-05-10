@@ -14,15 +14,15 @@ describe "Editing Item", type: :request do
       )
     end
 
-    it "should return a status code of 200" do
+    it "returns a status code of 200" do
       expect(response.status).to eq 200
     end
 
-    it "should return json data" do
+    it "returns json data" do
       expect(Mime::JSON).to eq response.content_type
     end
 
-    it "should return updated item" do
+    it "returns updated item" do
       expect(json(response.body)[:name]).to eq "New name"
       expect(json(response.body)[:done]).to eq true
     end
@@ -40,11 +40,11 @@ describe "Editing Item", type: :request do
       )
     end
 
-    it "should return a status code of 422" do
+    it "returns a status code of 422" do
       expect(response.status).to eq 422
     end
 
-    it "should return an error message" do
+    it "returns an error message" do
       expect(json(response.body)[:error]).to eq "Unable to edit item"
     end
   end
