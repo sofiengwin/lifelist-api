@@ -6,15 +6,14 @@ describe "Updating bucketlist" do
   context "updating a bucketlist with valid data" do
     before(:all) do
       user = create(:user, status: true)
-      token = AuthToken.new.encode(user.id)
       bucketlist = create(:bucketlist, user_id: user.id)
 
       put(
         "/api/v1/bucketlists/#{bucketlist.id}",
-        { bucketlist: { name: "New name" } }.to_json,
+        { name: "New name" }.to_json,
         "Accept" => "application/json",
         "Content-Type" => "application/json",
-        "Authorization" => token
+        "Authorization" => login(user)
       )
     end
 
@@ -34,15 +33,14 @@ describe "Updating bucketlist" do
   context "updating a buckelist with invalid data" do
     before(:all) do
       user = create(:user, status: true)
-      token = AuthToken.new.encode(user.id)
       bucketlist = create(:bucketlist, user_id: user.id)
 
       put(
         "/api/v1/bucketlists/#{bucketlist.id}",
-        { bucketlist: { name: nil } }.to_json,
+        { name: nil }.to_json,
         "Accept" => "application/json",
         "Content-Type" => "application/json",
-        "Authorization" => token
+        "Authorization" => login(user)
       )
     end
 

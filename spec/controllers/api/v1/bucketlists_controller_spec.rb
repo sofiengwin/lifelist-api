@@ -16,7 +16,7 @@ RSpec.describe Api::V1::BucketlistsController, type: :controller do
       get :index
     end
 
-    context "valid get request" do
+    context "when making valid get request" do
       it "returns a status code of 200" do
         expect(response.status).to eq 200
       end
@@ -60,9 +60,9 @@ RSpec.describe Api::V1::BucketlistsController, type: :controller do
   end
 
   describe "POST create" do
-    context "creating bucketlist with valid details" do
+    context "when creating bucketlist with valid details" do
       before(:each) do
-        post :create, bucketlist: attributes_for(:bucketlist, name: "Coding")
+        post :create, attributes_for(:bucketlist, name: "Coding")
       end
 
       it "returns a status code of 201" do
@@ -74,9 +74,9 @@ RSpec.describe Api::V1::BucketlistsController, type: :controller do
       end
     end
 
-    context "creating bucketlist with invalid details" do
+    context "when creating bucketlist with invalid details" do
       before(:each) do
-        post :create, bucketlist: attributes_for(:bucketlist, name: nil)
+        post :create, attributes_for(:bucketlist, name: nil)
       end
 
       it "returns a status code 422" do
@@ -90,12 +90,15 @@ RSpec.describe Api::V1::BucketlistsController, type: :controller do
   end
 
   describe "PUT update" do
-    context "updating a valid bucketlist" do
+    context "when updating a valid bucketlist" do
       before(:each) do
         put(
           :update,
-          id: @bucketlists[0],
-          bucketlist: attributes_for(:bucketlist)
+          attributes_for(
+            :bucketlist,
+            name: "Updated bucketlist",
+            id: @bucketlists[0]
+          )
         )
       end
 
@@ -104,13 +107,13 @@ RSpec.describe Api::V1::BucketlistsController, type: :controller do
       end
 
       it "returns the updated bucketlist" do
-        expect(json(response.body)[:name]).to eq @bucketlists[0].reload.name
+        expect(json(response.body)[:name]).to eq "Updated bucketlist"
       end
     end
 
-    context "updating an invalid bucketlist" do
+    context "when updating an invalid bucketlist" do
       before(:each) do
-        put :update, id: 100, bucketlist: attributes_for(:bucketlist)
+        put :update, attributes_for(:bucketlist, id: 100)
       end
 
       it "returns a status code of 400" do
@@ -124,7 +127,7 @@ RSpec.describe Api::V1::BucketlistsController, type: :controller do
   end
 
   describe "DELETE destroy" do
-    context "deleting a valid bucketlist" do
+    context "when deleting a valid bucketlist" do
       it "should decrease link count by 1" do
         expect do
           delete :destroy, id: @bucketlists[0]
@@ -132,7 +135,7 @@ RSpec.describe Api::V1::BucketlistsController, type: :controller do
       end
     end
 
-    context "deleting an invalid bucketlist" do
+    context "when deleting an invalid bucketlist" do
       it "should not decrease bucketlist count" do
         expect do
           delete :destroy, id: 100

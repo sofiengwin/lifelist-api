@@ -44,7 +44,7 @@ module Api
       private
 
       def bucketlist_params
-        params.require(:bucketlist).permit(:name)
+        params.permit(:name)
       end
     end
   end

@@ -4,12 +4,6 @@ RSpec.describe Api::V1::ItemsController, type: :controller do
   before(:all) do
     @item = create(:item)
     @user = @item.bucketlist.user
-    @user.update_attributes(status: true)
-    @params = {
-      item: attributes_for(:item),
-      id: @item.id,
-      bucketlist_id: @item.bucketlist.id
-    }
   end
 
   before(:each) do
@@ -21,28 +15,37 @@ RSpec.describe Api::V1::ItemsController, type: :controller do
     context "creating an item with valid details" do
       it "should increase item count by 1" do
         expect do
-          post :create, @params
+          post :create, attributes_for(
+            :item,
+            bucketlist_id: @item.bucketlist.id,
+            id: @item.id
+          )
         end.to change(Item, :count).by(1)
       end
     end
 
     context "creating an item with invalid details" do
       it "should not increase item count" do
-        params = {
-          item: attributes_for(:item, name: nil),
-          bucketlist_id: @item.bucketlist.id
-        }
         expect do
-          post :create, params
+          post :create, attributes_for(
+            :item,
+            name: nil,
+            bucketlist_id: @item.bucketlist.id
+          )
         end.to change(Item, :count).by(0)
       end
     end
   end
 
   describe "PUT update" do
+    # TODO: Add return value
     context "valid update request" do
       it "returns status code of 200" do
-        put :update, @params
+        put :update, attributes_for(
+          :item,
+          bucketlist_id: @item.bucketlist.id,
+          id: @item.id
+        )
         expect(response.status).to eq 200
       end
     end
@@ -51,7 +54,7 @@ RSpec.describe Api::V1::ItemsController, type: :controller do
       before(:each) do
         put(
           :update,
-          bucketlist_id: 100, id: 100, item: attributes_for(:item)
+          attributes_for(:item, id: 100, bucketlist_id: 100)
         )
       end
 
@@ -69,7 +72,7 @@ RSpec.describe Api::V1::ItemsController, type: :controller do
     context "valid delete request" do
       it "should decrease item count by 1" do
         expect do
-          delete :destroy, @params
+          delete :destroy, { bucketlist_id: @item.bucketlist.id, id: @item.id }
         end.to change(Item, :count).by(-1)
       end
     end

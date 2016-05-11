@@ -6,7 +6,7 @@ describe "Item Create Action", type: :request do
       bucketlist = create(:bucketlist)
       post(
         "/api/v1/bucketlists/#{bucketlist.id}/items",
-        { item: { name: "New item", done: false } }.to_json,
+        { name: "New item", done: false }.to_json,
         "Accept" => "application/json",
         "Content-Type" => "application/json",
         "Authorization" => login(bucketlist.user)
@@ -33,7 +33,7 @@ describe "Item Create Action", type: :request do
       bucketlist = create(:bucketlist)
       post(
         "/api/v1/bucketlists/#{bucketlist.id}/items",
-        { item: { name: nil, done: false } }.to_json,
+        { name: nil, done: false }.to_json,
         "Accept" => "application/json",
         "Content-Type" => "application/json",
         "Authorization" => login(bucketlist.user)
@@ -45,7 +45,27 @@ describe "Item Create Action", type: :request do
     end
 
     it "return error messages" do
-      expect(json(response.body)[:error]).to eq "Unable to create new item"
+      expect(json(response.body)[:errors][:name]).to include("can't be blank")
+    end
+  end
+
+  context "when creating item without token" do
+    before(:all) do
+      bucketlist = create(:bucketlist)
+      post(
+        "/api/v1/bucketlists/#{bucketlist.id}/items",
+        { name: "No Token" }.to_json,
+        "Accept" => "application/json",
+        "Content-Type" => "application/json"
+      )
+    end
+
+    it "returns a status code of 401" do
+      expect(response.status).to eq 401
+    end
+
+    it "returns an error message" do
+      expect(json(response.body)[:error]).to eq "Access denied"
     end
   end
 end
