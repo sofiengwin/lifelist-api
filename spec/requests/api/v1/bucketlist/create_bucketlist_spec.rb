@@ -1,12 +1,12 @@
 require "rails_helper"
 
 describe "Creating Bucketlist" do
-  context "creating a bucketlist with valid data" do
+  context "when creating a bucketlist with valid data" do
     before(:all) do
-      user = create(:user, status: true)
+      user = create(:user)
       post(
         "/api/v1/bucketlists",
-        { bucketlist: { name: "Movies" } }.to_json,
+        { name: "Movies" }.to_json,
         "Content-Type" => "application/json",
         "Authorization" => login(user)
       )
@@ -25,12 +25,12 @@ describe "Creating Bucketlist" do
     end
   end
 
-  context "creating a bucketlist with invalid data" do
+  context "when creating a bucketlist with invalid data" do
     before(:all) do
-      user = create(:user, status: true)
+      user = create(:user)
       post(
         "/api/v1/bucketlists",
-        { bucketlist: { name: nil } }.to_json,
+        { name: nil }.to_json,
         "Accept" => "application/json",
         "Content-Type" => "application/json",
         "Authorization" => login(user)
@@ -45,6 +45,25 @@ describe "Creating Bucketlist" do
       expect(json(response.body)[:errors][:name]).to include(
         "can't be blank"
       )
+    end
+  end
+
+  context "when creating bucketlist without token" do
+    before(:all) do
+      post(
+        "/api/v1/bucketlists",
+        { name: "No Token" }.to_json,
+        "Accept" => "application/json",
+        "Content-Type" => "application/json"
+      )
+    end
+
+    it "returns a status code of 401" do
+      expect(response.status).to eq 401
+    end
+
+    it "returns an error message" do
+      expect(json(response.body)[:error]).to eq "Access denied"
     end
   end
 end

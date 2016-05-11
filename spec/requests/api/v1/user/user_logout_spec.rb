@@ -1,18 +1,9 @@
 require "rails_helper"
 
 describe "User Logout", type: :request do
-  before(:all) do
-    password = Faker::Internet.password
-    @user = {
-      email: Faker::Internet.email,
-      password: password,
-      password_confirmation: password
-    }
-    @signed_user = create(:user, @user)
-  end
-
   context "valid logout request" do
-    before do
+    before(:all) do
+      @signed_user = create(:user)
       get(
         "/api/v1/auth/logout",
         {},
@@ -38,7 +29,7 @@ describe "User Logout", type: :request do
   end
 
   context "invalid logout request" do
-    before do
+    before(:all) do
       get(
         "/api/v1/auth/logout",
         "Accept" => "application/json"

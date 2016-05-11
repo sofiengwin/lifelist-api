@@ -10,7 +10,7 @@ module Api
         if item.save
           render json: item, status: 201
         else
-          render json: { error: "Unable to create new item" }, status: 422
+          render json: { errors: item.errors }, status: 422
         end
       end
 
@@ -18,7 +18,7 @@ module Api
         if @item.update(item_params)
           render json: @item, status: 200
         else
-          render json: { error: "Unable to edit item" }, status: 422
+          render json: { errors: @item.errors }, status: 422
         end
       end
 
@@ -30,7 +30,7 @@ module Api
       private
 
       def item_params
-        params.require(:item).permit(:name, :done)
+        params.permit(:name, :done)
       end
     end
   end

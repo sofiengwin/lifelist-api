@@ -1,20 +1,11 @@
 require "rails_helper"
 
 describe "User Creation", type: :request do
-  context "creating a user with valid data" do
-    let(:new_user) do
-      {
-        name: Faker::Name.name,
-        email: Faker::Internet.email,
-        password: "password",
-        password_confirmation: "password"
-      }
-    end
-
-    before do
+  context "when creating a user with valid data" do
+    before(:all) do
       post(
         "/api/v1/users",
-        { user: new_user }.to_json,
+        { user: attributes_for(:user) }.to_json,
         "Accept" => "application/json",
         "Content-Type" => "application/json"
       )
@@ -33,20 +24,11 @@ describe "User Creation", type: :request do
     end
   end
 
-  context "creating a user with invalid data" do
-    let(:invalid_user) do
-      {
-        name: nil,
-        email: nil,
-        password: "pass",
-        password_confirmation: "pass"
-      }
-    end
-
-    before do
+  context "when creating a user with invalid data" do
+    before(:all) do
       post(
         "/api/v1/users",
-        { user: invalid_user }.to_json,
+        { user: attributes_for(:user, name: nil, email: nil) }.to_json,
         "Accept" => "application/json",
         "Content-Type" => "application/json"
       )
@@ -64,9 +46,6 @@ describe "User Creation", type: :request do
       result = json(response.body)
       expect(result[:errors][:name]).to include "can't be blank"
       expect(result[:errors][:email]).to include "can't be blank"
-      expect(result[:errors][:password]).to include(
-        "is too short (minimum is 6 characters)"
-      )
     end
   end
 end

@@ -1,13 +1,12 @@
 require "rails_helper"
 
 describe "Editing Item", type: :request do
-
   context "editing an item with valid data" do
     before(:all) do
       item = create(:item)
       put(
         "/api/v1/bucketlists/#{item.bucketlist.id}/items/#{item.id}",
-        { item: { name: "New name", done: true } }.to_json,
+        { name: "New name", done: true }.to_json,
         "Accept" => "application/json",
         "Content-Type" => "application/json",
         "Authorization" => login(item.bucketlist.user)
@@ -33,7 +32,7 @@ describe "Editing Item", type: :request do
       item = create(:item)
       put(
         "/api/v1/bucketlists/#{item.bucketlist.id}/items/#{item.id}",
-        { item: { name: nil, done: true } }.to_json,
+        { name: nil, done: true }.to_json,
         "Accept" => "application/json",
         "Content-Type" => "application/json",
         "Authorization" => login(item.bucketlist.user)
@@ -45,7 +44,7 @@ describe "Editing Item", type: :request do
     end
 
     it "returns an error message" do
-      expect(json(response.body)[:error]).to eq "Unable to edit item"
+      expect(json(response.body)[:errors][:name]).to include("can't be blank")
     end
   end
 end
