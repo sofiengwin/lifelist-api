@@ -6,7 +6,7 @@ class Bucketlist < ActiveRecord::Base
   validates :name, presence: true, uniqueness: true
 
   scope :search, lambda { |search_term = nil|
-    search_term.downcase if search_term
+    search_term = search_term.downcase if search_term
     where("lower(name) LIKE ?", "%#{search_term}%")
   }
 
