@@ -11,7 +11,7 @@ describe "User Login" do
     @signed_user = create(:user, @user)
   end
 
-  context "with valid login details" do
+  context "when making a login request with valid details" do
     before(:all) do
       post(
         "/api/v1/auth/login",
@@ -38,7 +38,7 @@ describe "User Login" do
     end
   end
 
-  context "with invalid login details" do
+  context "when making a login request with invalid details" do
     before(:all) do
       post(
         "/api/v1/auth/login",

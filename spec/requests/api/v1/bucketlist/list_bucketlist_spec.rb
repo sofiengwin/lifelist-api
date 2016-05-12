@@ -39,7 +39,7 @@ describe "Listing Bucketlist" do
   end
 
   describe "search" do
-    context "valid search query" do
+    context "when making a valid search query" do
       before(:all) do
         current_user = create(:user, status: true)
         create(:bucketlist, name: "Read Pragmatic", user_id: current_user.id)
@@ -62,7 +62,7 @@ describe "Listing Bucketlist" do
       end
     end
 
-    context "invalid search query" do
+    context "when making an invalid search query" do
       before(:all) do
         user = create(:user, status: true)
         valid_get_request("/api/v1/bucketlists?q=invalid", user)
@@ -85,7 +85,7 @@ describe "Listing Bucketlist" do
       @bucketlists = create_list(:bucketlist, 20, user_id: @user.id)
     end
 
-    context "limit is passed in params" do
+    context "when limit is passed in params" do
       before(:all) do
         valid_get_request("/api/v1/bucketlists?page=1&limit=10", @user)
       end
@@ -102,7 +102,7 @@ describe "Listing Bucketlist" do
       end
     end
 
-    context "invalid page number and limit" do
+    context "when invalid page number and limit is passed in params" do
       before(:all) do
         valid_get_request("/api/v1/bucketlists?page=10&limit=10", @user)
       end
@@ -116,7 +116,7 @@ describe "Listing Bucketlist" do
       end
     end
 
-    context "valid page number" do
+    context "when valid page number is passed in params" do
       before(:all) do
         valid_get_request("/api/v1/bucketlists?page=2&limit=2", @user)
       end

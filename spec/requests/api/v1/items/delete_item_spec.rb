@@ -1,7 +1,7 @@
 require "rails_helper"
 
 describe "Deleting Item" do
-  context "valid delete request" do
+  context "when making a valid delete request" do
     before(:all) do
       item = create(:item)
       delete_request(

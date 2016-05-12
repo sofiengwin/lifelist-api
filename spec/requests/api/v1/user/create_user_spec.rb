@@ -5,7 +5,7 @@ describe "User Creation", type: :request do
     before(:all) do
       post(
         "/api/v1/users",
-        { user: attributes_for(:user) }.to_json,
+        attributes_for(:user).to_json,
         "Accept" => "application/json",
         "Content-Type" => "application/json"
       )
@@ -28,7 +28,7 @@ describe "User Creation", type: :request do
     before(:all) do
       post(
         "/api/v1/users",
-        { user: attributes_for(:user, name: nil, email: nil) }.to_json,
+        attributes_for(:user, name: nil, email: nil).to_json,
         "Accept" => "application/json",
         "Content-Type" => "application/json"
       )
