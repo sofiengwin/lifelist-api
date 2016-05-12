@@ -3,7 +3,7 @@ require "rails_helper"
 describe "Updating bucketlist" do
   let(:bucketlist) { create(:bucketlist) }
 
-  context "updating a bucketlist with valid data" do
+  context "when updating a bucketlist with valid data" do
     before(:all) do
       user = create(:user, status: true)
       bucketlist = create(:bucketlist, user_id: user.id)
@@ -30,7 +30,7 @@ describe "Updating bucketlist" do
     end
   end
 
-  context "updating a buckelist with invalid data" do
+  context "when updating a buckelist with invalid data" do
     before(:all) do
       user = create(:user, status: true)
       bucketlist = create(:bucketlist, user_id: user.id)

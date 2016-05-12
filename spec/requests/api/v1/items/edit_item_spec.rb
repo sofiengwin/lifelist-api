@@ -1,7 +1,7 @@
 require "rails_helper"
 
 describe "Editing Item", type: :request do
-  context "editing an item with valid data" do
+  context "when editing an item with valid data" do
     before(:all) do
       item = create(:item)
       put(
@@ -27,7 +27,7 @@ describe "Editing Item", type: :request do
     end
   end
 
-  context "editing an item with invalid data" do
+  context "when editing an item with invalid data" do
     before(:all) do
       item = create(:item)
       put(

@@ -1,7 +1,7 @@
 require "rails_helper"
 
 describe "Item Create Action", type: :request do
-  context "creating an item with valid data" do
+  context "when creating an item with valid data" do
     before(:all) do
       bucketlist = create(:bucketlist)
       post(
@@ -28,7 +28,7 @@ describe "Item Create Action", type: :request do
     end
   end
 
-  context "creating an item with invalid data" do
+  context "when creating an item with invalid data" do
     before(:all) do
       bucketlist = create(:bucketlist)
       post(

@@ -12,7 +12,7 @@ RSpec.describe Api::V1::ItemsController, type: :controller do
   end
 
   describe "POST create" do
-    context "creating an item with valid details" do
+    context "when creating an item with valid details" do
       it "should increase item count by 1" do
         expect do
           post :create, attributes_for(
@@ -24,7 +24,7 @@ RSpec.describe Api::V1::ItemsController, type: :controller do
       end
     end
 
-    context "creating an item with invalid details" do
+    context "when creating an item with invalid details" do
       it "should not increase item count" do
         expect do
           post :create, attributes_for(
@@ -38,8 +38,7 @@ RSpec.describe Api::V1::ItemsController, type: :controller do
   end
 
   describe "PUT update" do
-    # TODO: Add return value
-    context "valid update request" do
+    context "when updating with valid details" do
       it "returns status code of 200" do
         put :update, attributes_for(
           :item,
@@ -50,7 +49,7 @@ RSpec.describe Api::V1::ItemsController, type: :controller do
       end
     end
 
-    context "invalid update request" do
+    context "when updating with invalid details" do
       before(:each) do
         put(
           :update,
@@ -69,15 +68,15 @@ RSpec.describe Api::V1::ItemsController, type: :controller do
   end
 
   describe "DELETE destroy" do
-    context "valid delete request" do
+    context "when making a valid delete request" do
       it "should decrease item count by 1" do
         expect do
-          delete :destroy, { bucketlist_id: @item.bucketlist.id, id: @item.id }
+          delete :destroy, bucketlist_id: @item.bucketlist.id, id: @item.id
         end.to change(Item, :count).by(-1)
       end
     end
 
-    context "invalid delete request" do
+    context "when making an invalid delete request" do
       before(:each) do
         item = create(:item)
         params = {
