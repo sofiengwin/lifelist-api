@@ -10,4 +10,5 @@ Rails.application.routes.draw do
       get "/auth/logout", to: "sessions#destroy", as: :logout
     end
   end
+  match "*invalid_endpoint", to: "application#invalid_endpoint", via: :all
 end
