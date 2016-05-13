@@ -6,8 +6,7 @@ describe "Creating Bucketlist" do
       user = create(:user)
       post(
         "/api/v1/bucketlists",
-        { name: "Movies" }.to_json,
-        "Content-Type" => "application/json",
+        { name: "Movies" },
         "Authorization" => login(user)
       )
     end

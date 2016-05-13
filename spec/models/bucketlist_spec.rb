@@ -46,4 +46,21 @@ RSpec.describe Bucketlist, type: :model do
       end
     end
   end
+
+  describe "search" do
+    before(:all) do
+      3.times { |n| create(:bucketlist, name: "Buy book #{n}") }
+    end
+    context "when searching with lower case letters" do
+      it "should return three bucketlists" do
+        expect(Bucketlist.search("book").count).to eq 3
+      end
+    end
+
+    context "when searching with upper case letters" do
+      it "should return three bucketlists" do
+        expect(Bucketlist.search("BOOK").count).to eq 3
+      end
+    end
+  end
 end

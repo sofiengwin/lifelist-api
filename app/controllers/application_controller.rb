@@ -11,6 +11,13 @@ class ApplicationController < ActionController::API
     ) unless current_user && current_user.status
   end
 
+  def invalid_endpoint
+    render(
+      json: { error: "Invalid endpoint, check documentation for more details" },
+      status: 400
+    )
+  end
+
   private
 
   def user_id
