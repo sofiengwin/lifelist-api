@@ -7,24 +7,15 @@ module Api
 
       def create
         item = @bucketlist.items.new(item_params)
-        if item.save
-          render json: item, status: 201
-        else
-          render json: { errors: item.errors }, status: 422
-        end
+        save_helper(item)
       end
 
       def update
-        if @item.update_attributes(item_params)
-          render json: @item, status: 200
-        else
-          render json: { errors: @item.errors }, status: 422
-        end
+        update_helper(@item, item_params)
       end
 
       def destroy
-        @item.destroy
-        render json: { success: "Item deleted successfully" }, status: 200
+        delete_helper(@item)
       end
 
       private

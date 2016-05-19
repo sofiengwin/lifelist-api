@@ -20,4 +20,25 @@ module ResourceHelper
   def not_found
     render json: { error: "Request cannot be completed" }, status: 400
   end
+
+  def update_helper(object, params)
+    if object.update_attributes(params)
+      render json: object, status: 200
+    else
+      render json: { errors: object.errors }, status: 422
+    end
+  end
+
+  def save_helper(object)
+    if object.save
+      render json: object, status: 201
+    else
+      render json: { errors: object.errors }, status: 422
+    end
+  end
+
+  def delete_helper(object)
+    object.destroy
+    render json: { success: delete_message(object) }, status: 200
+  end
 end

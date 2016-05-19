@@ -29,8 +29,8 @@ RSpec.describe Bucketlist, type: :model do
       end
 
       it "return bucketlists in the second page" do
-        expect(paginate.first.name).to eq @bucketlists[19].name
-        expect(paginate.last.name).to eq @bucketlists[38].name
+        expect(paginate.first.name).to eq @bucketlists[0].name
+        expect(paginate.last.name).to eq @bucketlists[19].name
       end
     end
 
