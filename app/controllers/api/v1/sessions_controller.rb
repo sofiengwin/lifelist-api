@@ -9,17 +9,17 @@ module Api
           user.update_attribute("status", true)
           token = AuthToken.new.encode(user.id)
           render(
-            json: { success: "Logged in successfully", auth_token: token },
+            json: { success: login_success, auth_token: token },
             status: 200
           )
         else
-          render json: { error: "Unable to login" }, status: 422
+          render json: { error: login_error }, status: 422
         end
       end
 
       def destroy
         current_user.update_attribute("status", false)
-        render json: { success: "You are now logged out" }
+        render json: { success: logout_success }
       end
     end
   end

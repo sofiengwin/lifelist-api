@@ -1,19 +1,21 @@
 class ApplicationController < ActionController::API
   include ActionController::Serialization
+  include Messages
+
   def current_user
     @current_user || User.find_by(id: user_id) if user_id
   end
 
   def authenticate_token
     render(
-      json: { error: "Access denied" },
+      json: { error: access_denied },
       status: 401
     ) unless current_user && current_user.status
   end
 
   def invalid_endpoint
     render(
-      json: { error: "Invalid endpoint, check documentation for more details" },
+      json: { error: invalid_endpoint_error },
       status: 400
     )
   end

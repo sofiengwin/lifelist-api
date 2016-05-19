@@ -97,8 +97,8 @@ describe "Listing Bucketlist" do
 
       it "returns the correct bucketlists" do
         result = json(response.body)
-        expect(result.first[:name]).to eq @bucketlists[9].name
-        expect(result.last[:name]).to eq @bucketlists[18].name
+        expect(result.first[:name]).to eq @bucketlists[0].name
+        expect(result.last[:name]).to eq @bucketlists[9].name
       end
     end
 
@@ -127,8 +127,8 @@ describe "Listing Bucketlist" do
 
       it "returns the correct bucketlists" do
         result = json(response.body)
-        expect(result.first[:name]).to eq @bucketlists[3].name
-        expect(result.last[:name]).to eq @bucketlists[4].name
+        expect(result.first[:name]).to eq @bucketlists[2].name
+        expect(result.last[:name]).to eq @bucketlists[3].name
       end
     end
   end

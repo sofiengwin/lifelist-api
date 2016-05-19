@@ -1,7 +1,7 @@
 require "rails_helper"
 
 describe "User Logout", type: :request do
-  context "when making a valid logout request" do
+  context "when a valid token is passed in the header" do
     before(:all) do
       @signed_user = create(:user)
       get(
@@ -28,7 +28,7 @@ describe "User Logout", type: :request do
     end
   end
 
-  context "when making an invalid logout request" do
+  context "when a token is not passed in the header" do
     before(:all) do
       get(
         "/api/v1/auth/logout",
