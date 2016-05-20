@@ -42,7 +42,7 @@ describe "Creating Bucketlist" do
 
     it "returns the error messages" do
       expect(json(response.body)[:errors][:name]).to include(
-        "can't be blank"
+        language.blank
       )
     end
   end

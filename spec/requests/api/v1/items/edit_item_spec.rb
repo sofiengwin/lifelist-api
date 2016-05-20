@@ -44,7 +44,7 @@ describe "Editing Item", type: :request do
     end
 
     it "returns an error message" do
-      expect(json(response.body)[:errors][:name]).to include("can't be blank")
+      expect(json(response.body)[:errors][:name]).to include(language.blank)
     end
   end
 end

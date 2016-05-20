@@ -50,7 +50,7 @@ describe "Updating bucketlist" do
 
     it "return the full error messages" do
       expect(json(response.body)[:errors][:name]).to include(
-        "can't be blank"
+        language.blank
       )
     end
   end

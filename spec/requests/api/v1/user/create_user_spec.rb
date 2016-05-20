@@ -44,8 +44,8 @@ describe "User Creation", type: :request do
 
     it "returns activer model validation errors" do
       result = json(response.body)
-      expect(result[:errors][:name]).to include "can't be blank"
-      expect(result[:errors][:email]).to include "can't be blank"
+      expect(result[:errors][:name]).to include language.blank
+      expect(result[:errors][:email]).to include language.blank
     end
   end
 end
