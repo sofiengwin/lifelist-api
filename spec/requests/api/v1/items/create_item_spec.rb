@@ -45,7 +45,7 @@ describe "Item Create Action", type: :request do
     end
 
     it "return error messages" do
-      expect(json(response.body)[:errors][:name]).to include("can't be blank")
+      expect(json(response.body)[:errors][:name]).to include(language.blank)
     end
   end
 

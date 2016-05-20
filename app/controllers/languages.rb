@@ -34,4 +34,12 @@ class Languages
   def invalid_request
     "Request cannot be completed"
   end
+
+  def blank
+    "can't be blank"
+  end
+
+  def password
+    "is too short (minimum is 6 characters)"
+  end
 end
