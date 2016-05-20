@@ -9,7 +9,7 @@ module Api
         bucketlists = current_user.bucketlists.search(params[:q]).
                       paginate(params)
         if bucketlists.empty?
-          render json: { error: no_record_found }, status: 404
+          render json: { error: language.no_record_found }, status: 404
         else
           render json: bucketlists, status: 200, root: false
         end

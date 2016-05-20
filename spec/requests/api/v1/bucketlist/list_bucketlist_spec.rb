@@ -16,7 +16,7 @@ describe "Listing Bucketlist" do
     end
 
     it "returns error message" do
-      expect(json(response.body)[:error]).to eq "Access denied"
+      expect(json(response.body)[:error]).to eq language.access_denied
     end
   end
 
@@ -73,7 +73,7 @@ describe "Listing Bucketlist" do
       end
 
       it "returns error message" do
-        expect(json(response.body)[:error]).to eq "No bucketlist found"
+        expect(json(response.body)[:error]).to eq language.no_record_found
       end
     end
   end
@@ -112,7 +112,7 @@ describe "Listing Bucketlist" do
       end
 
       it "returns error message" do
-        expect(json(response.body)[:error]).to eq "No bucketlist found"
+        expect(json(response.body)[:error]).to eq language.no_record_found
       end
     end
 

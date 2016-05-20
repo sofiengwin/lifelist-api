@@ -3,10 +3,10 @@ require "rails_helper"
 describe "Deleting Item" do
   context "when making a valid delete request" do
     before(:all) do
-      item = create(:item)
+      @item = create(:item)
       delete_request(
-        "/api/v1/bucketlists/#{item.bucketlist.id}/items/#{item.id}",
-        item.bucketlist.user
+        "/api/v1/bucketlists/#{@item.bucketlist.id}/items/#{@item.id}",
+        @item.bucketlist.user
       )
     end
 
@@ -15,7 +15,7 @@ describe "Deleting Item" do
     end
 
     it "returns a success message" do
-      expect(json(response.body)[:success]).to eq "Item deleted successfully"
+      expect(json(response.body)[:success]).to eq language.delete_message(@item)
     end
   end
 

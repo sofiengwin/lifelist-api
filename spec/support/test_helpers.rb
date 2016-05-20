@@ -9,6 +9,10 @@ module Support
         AuthToken.new.encode(user.id)
       end
 
+      def language
+        Languages.new
+      end
+
       def valid_get_request(route, user)
         get(
           route,

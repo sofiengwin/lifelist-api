@@ -50,19 +50,14 @@ RSpec.describe Api::V1::ItemsController, type: :controller do
     end
 
     context "when updating with invalid details" do
-      before(:each) do
+      it "returns an error message" do
         put(
           :update,
           attributes_for(:item, id: 100, bucketlist_id: 100)
         )
-      end
 
-      it "returns status code of 400" do
         expect(response.status).to eq 400
-      end
-
-      it "returns an error message" do
-        expect(json(response.body)[:error]).to eq "Request cannot be completed"
+        expect(json(response.body)[:error]).to eq language.invalid_request
       end
     end
   end
@@ -77,7 +72,7 @@ RSpec.describe Api::V1::ItemsController, type: :controller do
     end
 
     context "when making an invalid delete request" do
-      before(:each) do
+      it "returns a status code of 400 and an error message" do
         item = create(:item)
         params = {
           id: item.id,
@@ -85,14 +80,8 @@ RSpec.describe Api::V1::ItemsController, type: :controller do
         }
 
         delete :destroy, params
-      end
-
-      it "returns a status code of 400" do
         expect(response.status).to eq 400
-      end
-
-      it "returns an error message" do
-        expect(json(response.body)[:error]).to eq "Request cannot be completed"
+        expect(json(response.body)[:error]).to eq language.invalid_request
       end
     end
   end

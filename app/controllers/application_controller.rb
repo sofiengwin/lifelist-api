@@ -1,6 +1,5 @@
 class ApplicationController < ActionController::API
   include ActionController::Serialization
-  include Messages
 
   def current_user
     @current_user || User.find_by(id: user_id) if user_id
@@ -8,16 +7,20 @@ class ApplicationController < ActionController::API
 
   def authenticate_token
     render(
-      json: { error: access_denied },
+      json: { error: language.access_denied },
       status: 401
     ) unless current_user && current_user.status
   end
 
   def invalid_endpoint
     render(
-      json: { error: invalid_endpoint_error },
+      json: { error: language.invalid_endpoint_error },
       status: 400
     )
+  end
+
+  def language
+    Languages.new
   end
 
   private

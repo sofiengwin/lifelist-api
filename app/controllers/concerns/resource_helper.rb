@@ -18,7 +18,7 @@ module ResourceHelper
   end
 
   def not_found
-    render json: { error: "Request cannot be completed" }, status: 400
+    render json: { error: language.invalid_request }, status: 400
   end
 
   def update_helper(object, params)
@@ -39,6 +39,6 @@ module ResourceHelper
 
   def delete_helper(object)
     object.destroy
-    render json: { success: delete_message(object) }, status: 200
+    render json: { success: language.delete_message(object) }, status: 200
   end
 end

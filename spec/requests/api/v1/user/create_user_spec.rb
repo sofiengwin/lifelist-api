@@ -20,7 +20,7 @@ describe "User Creation", type: :request do
     end
 
     it "returns success message" do
-      expect(json(response.body)[:message]).to eq "Account created"
+      expect(json(response.body)[:message]).to eq language.account_created
     end
   end
 

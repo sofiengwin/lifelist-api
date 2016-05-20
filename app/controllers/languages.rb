@@ -1,4 +1,4 @@
-module Messages
+class Languages
   def no_record_found
     "No bucketlist found"
   end
@@ -29,5 +29,9 @@ module Messages
 
   def invalid_endpoint_error
     "Invalid endpoint, check documentation for more details"
+  end
+
+  def invalid_request
+    "Request cannot be completed"
   end
 end

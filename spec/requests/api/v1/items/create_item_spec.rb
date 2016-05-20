@@ -65,7 +65,7 @@ describe "Item Create Action", type: :request do
     end
 
     it "returns an error message" do
-      expect(json(response.body)[:error]).to eq "Access denied"
+      expect(json(response.body)[:error]).to eq language.access_denied
     end
   end
 end

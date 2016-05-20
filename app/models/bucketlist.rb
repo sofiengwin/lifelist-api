@@ -15,6 +15,6 @@ class Bucketlist < ActiveRecord::Base
     page = params[:page] || 0
     set_limit = limit.to_i > 100 ? 100 : limit.to_i
     set_offset = page == 0 ? 0 : (page.to_i - 1) * set_limit
-    offset(set_offset).limit(set_limit)
+    offset(set_offset).limit(set_limit).order(:created_at)
   }
 end
