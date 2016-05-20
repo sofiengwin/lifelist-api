@@ -20,7 +20,7 @@ describe "User Logout", type: :request do
     end
 
     it "returns success message" do
-      expect(json(response.body)[:success]).to eq "You are now logged out"
+      expect(json(response.body)[:success]).to eq language.logout_success
     end
 
     it "should update user status to false" do
@@ -45,7 +45,7 @@ describe "User Logout", type: :request do
     end
 
     it "returns error message" do
-      expect(json(response.body)[:error]).to eq "Access denied"
+      expect(json(response.body)[:error]).to eq language.access_denied
     end
   end
 end

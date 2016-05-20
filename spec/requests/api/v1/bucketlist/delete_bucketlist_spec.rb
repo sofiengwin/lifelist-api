@@ -11,7 +11,9 @@ describe "Deleting Bucketlist" do
   it "returns a success message" do
     bucketlist = create(:bucketlist, user_id: user.id)
     delete_request("/api/v1/bucketlists/#{bucketlist.id}", user)
-    expect(json(response.body)[:success]).to eq "Bucketlist deleted successfully"
+    expect(json(response.body)[:success]).to eq(
+      language.delete_message(bucketlist)
+    )
   end
 
   it "should reduce bucketlist count by one" do

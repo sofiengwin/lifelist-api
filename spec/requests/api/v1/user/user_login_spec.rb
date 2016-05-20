@@ -30,7 +30,7 @@ describe "User Login" do
     end
 
     it "returns success message" do
-      expect(json(response.body)[:success]).to eq "Logged in successfully"
+      expect(json(response.body)[:success]).to eq language.login_success
     end
 
     it "returns an active status" do
@@ -60,7 +60,7 @@ describe "User Login" do
     end
 
     it "returns error message" do
-      expect(json(response.body)[:error]).to eq "Unable to login"
+      expect(json(response.body)[:error]).to eq language.login_error
     end
   end
 end
