@@ -6,7 +6,11 @@ module Api
         if user.save
           token = AuthToken.new.encode(user.id)
           render(
-            json: { message: language.account_created, auth_token: token },
+            json: {
+              message: language.account_created,
+              auth_token: token,
+              user: user
+            },
             status: 201
           )
         else

@@ -9,7 +9,11 @@ module Api
           user.update_attribute("status", true)
           token = AuthToken.new.encode(user.id)
           render(
-            json: { success: language.login_success, auth_token: token },
+            json: {
+              success: language.login_success,
+              auth_token: token,
+              user: user
+            },
             status: 200
           )
         else
